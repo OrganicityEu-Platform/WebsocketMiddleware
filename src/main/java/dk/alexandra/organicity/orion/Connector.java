@@ -111,7 +111,7 @@ public class Connector {
 		Client c = ClientBuilder.newClient( new ClientConfig().register( LoggingFilter.class ) );
 		WebTarget webTarget = c.target(serverUrl).path("/v2/entities/"+subscription.getId());
 		System.out.println(webTarget);
-		Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON);
+		Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON).header("Fiware-Service", " organicity");
 		Response checkResponse = invocationBuilder.get();
 		
 		JSONObject checkEntity = new JSONObject(checkResponse.readEntity(String.class));
