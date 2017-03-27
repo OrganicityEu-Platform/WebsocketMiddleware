@@ -79,12 +79,10 @@
             <version>3.1.0</version>
         </dependency>
         <dependency>
-            <groupId>dk.alexandra.orion</groupId>
-            <artifactId>websocketTransports</artifactId>
-            <version>0.2</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/libs/transports.jar</systemPath>
-        </dependency>
+		    <groupId>dk.alexandra.organicity</groupId>
+		    <artifactId>WebsocketTransports</artifactId>
+		    <version>0.0.2-20161217.142358-1</version>
+		</dependency>
         
 
         <dependency>
