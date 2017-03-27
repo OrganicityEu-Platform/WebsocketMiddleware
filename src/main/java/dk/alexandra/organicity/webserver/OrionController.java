@@ -27,11 +27,13 @@ import org.springframework.web.socket.messaging.SessionSubscribeEvent;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import dk.alexandra.organicity.config.JwtParser;
 import dk.alexandra.organicity.orion.Connector;
 import dk.alexandra.orion.websocket.transports.Notification;
 import dk.alexandra.orion.websocket.transports.OrionSubscription;
 import dk.alexandra.orion.websocket.transports.OutOfBandMessage;
 import dk.alexandra.orion.websocket.transports.pojo.ContextElement;
+import io.jsonwebtoken.Claims;
 
 
 /**
@@ -75,11 +77,26 @@ public class OrionController {
         }catch(IOException e){
         	e.printStackTrace();
         }
-        String[] subscriptionResponse = connector.registerSubscription(subscription, sessionId);
-
-        OutOfBandMessage message = new OutOfBandMessage(subscriptionResponse[0],subscriptionResponse[1]);
+        OutOfBandMessage message = new OutOfBandMessage();
+        //verify user token
+        String token = subscription.getToken();
+        try {
+        	JwtParser fwtparser = new JwtParser();
+        	
+        	Claims claim = fwtparser.parseJWT(token);
+        	LOGGER.info("client verified");
+        	String clientId = claim.get("clientId").toString();
+        	// Token valid
+        	String[] subscriptionResponse = connector.registerSubscription(subscription, sessionId,clientId);
+            message = new OutOfBandMessage(subscriptionResponse[0],subscriptionResponse[1]);
+            
+        } catch (Exception e) {
+        	// Token invalid
+        	LOGGER.error("Client not verified: "+token);
+        	message = new OutOfBandMessage("error","401 - Token not verified");
+        }
         
-        System.out.println(message.getMessage());
+        
         messagingTemplate.convertAndSendToUser(sessionId,"/message/queue/orion", message, createHeaders(sessionId));
     }
     
@@ -102,6 +119,8 @@ public class OrionController {
         }catch(IOException e){
         	e.printStackTrace();
         }
+    	
+    	
     	
     	LOGGER.info("response from unsubscribe: "+subscriptionId);
         if(subscriptionId==null){

@@ -81,7 +81,7 @@
         <dependency>
             <groupId>dk.alexandra.orion</groupId>
             <artifactId>websocketTransports</artifactId>
-            <version>0.1</version>
+            <version>0.2</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/libs/transports.jar</systemPath>
         </dependency>
@@ -92,9 +92,17 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        
+        <!-- https://github.com/jwtk/jjwt -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.6.0</version>
+		</dependency>
+        
     </dependencies>
-
-    <properties>
+    
+     <properties>
         <java.version>1.8</java.version>
         <start-class>dk.alexandra.organicity.config.Application</start-class>
     </properties>
