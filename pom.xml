@@ -5,7 +5,7 @@
 
     <groupId>eu.organicity</groupId>
     <artifactId>orion-websocket-server</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.2</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -15,10 +15,16 @@
 
 	
 	<repositories>
+		<repository>
+			<id>AI</id>
+			<name>Alexandra Institute maven repository</name>
+			<url>https://maven.alexandra.dk/repository/maven-snapshots</url>
+		</repository>
 	    <repository>
 	        <id>organicity</id>
 	        <url>https://maven.organicity.eu/content/repositories/snapshots</url>
 	    </repository>
+	    
 	</repositories>
 	
     <dependencies>
@@ -81,7 +87,7 @@
         <dependency>
 		    <groupId>dk.alexandra.organicity</groupId>
 		    <artifactId>WebsocketTransports</artifactId>
-		    <version>0.0.2-20161217.142358-1</version>
+		    <version>0.0.3-SNAPSHOT</version>
 		</dependency>
         
 

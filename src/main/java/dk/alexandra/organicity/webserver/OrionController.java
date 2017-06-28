@@ -82,7 +82,6 @@ public class OrionController {
         String token = subscription.getToken();
         try {
         	JwtParser fwtparser = new JwtParser();
-        	
         	Claims claim = fwtparser.parseJWT(token);
         	LOGGER.info("client verified");
         	String clientId = claim.get("clientId").toString();
@@ -91,6 +90,7 @@ public class OrionController {
             message = new OutOfBandMessage(subscriptionResponse[0],subscriptionResponse[1]);
             
         } catch (Exception e) {
+        	e.printStackTrace();
         	// Token invalid
         	LOGGER.error("Client not verified: "+token);
         	message = new OutOfBandMessage("error","401 - Token not verified");
