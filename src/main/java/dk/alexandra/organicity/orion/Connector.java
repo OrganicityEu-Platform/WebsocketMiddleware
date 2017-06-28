@@ -89,7 +89,7 @@ public class Connector {
         try{
         	properties = new Properties();
             properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("connection.properties"));
-            //serverUrl = properties.getProperty("serverUrl");
+            serverUrl = properties.getProperty("serverUrl");
             
             localURI = properties.getProperty("localURI");
             tokenUrl = properties.getProperty("tokenUrl");
